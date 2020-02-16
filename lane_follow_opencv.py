@@ -47,7 +47,7 @@ def create_video_recorder(path):
     return cv2.VideoWriter(path, self.fourcc, 20.0, (self.__SCREEN_WIDTH, self.__SCREEN_HEIGHT))
 
 def process_objects_on_road(image):
-        image = self.traffic_sign_processor.process_objects_on_road(image)
+        image = traffic_sign_processor.process_objects_on_road(image)
         return image
 
 def follow_lane(image):
