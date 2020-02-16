@@ -9,9 +9,9 @@ import car_dir as steer_motor
 import motor as drive_motor
 
 class SDCar(object):
-    def __init__(self, spd_cmd, str_cmd):
+    def __init__(self):
         logging.info('Creating an SDC object')
-        self.spd_cmd = spd_cmd
+        self.spd_cmd = 0
         self.spd_cur = self.spd_cmd
         self.str_cmd = 450
         self.str_cur = self.str_cmd
