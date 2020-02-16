@@ -131,7 +131,7 @@ class ObjectsOnRoadProcessor(object):
         start_ms = time.time()
         frame_RGB = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
         img_pil = Image.fromarray(frame_RGB)
-        objects = self.engine.DetectWithImage(img_pil, threshold=self.min_confidence, keep_aspect_ratio=True,
+        objects = self.engine.detect_with_image(img_pil, threshold=self.min_confidence, keep_aspect_ratio=True,
                                          relative_coord=False, top_k=self.num_of_objects)
         if objects:
             for obj in objects:

@@ -121,6 +121,7 @@ class PWM(object):
         if bus_number == None:
             self.bus_number = self._get_bus_number()
         else:
+            print(bus_number)
             self.bus_number = bus_number
         self.bus = smbus.SMBus(self.bus_number)
         if self._DEBUG:

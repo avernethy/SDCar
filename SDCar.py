@@ -9,24 +9,29 @@ import car_dir as steer_motor
 import motor as drive_motor
 
 class SDCar(object):
-    busnum = 1
+    
     def __init__(self):
+        print('debug')
+        busnum = 0
         logging.info('Creating an SDC object')
-        steer_motor.setup(busnum=busnum)
-        drive_motor.setup(busnum=busnum)
+        steer_motor.setup()
+        print('debug2')
+        drive_motor.setup()
+        drive_motor.ctrl(1)
         self.spd_cmd = 0
         self.spd_cur = self.spd_cmd
         self.str_cmd = 450
         self.str_cur = self.str_cmd
         steer_motor.home()
-        drive_motor.stop()
+        #drive_motor.stop()
+        
 
     def steer(self, str_cmd):
         MAX_STEER_DIFF = 1
         steer_motor.turn(self.str_cmd)
 
     def accel(self, spd_cmd):
-        drive_motor.setSpeed(self.spd_cmd)
+        drive_motor.setSpeed(spd_cmd)
 
     def stop_all(self):
         steer_motor.home()
