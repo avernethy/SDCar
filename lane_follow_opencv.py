@@ -12,7 +12,7 @@ def process_objects_on_road(image):
     return image
 
 def follow_lane(image):
-    #image = self.lane_follower.follow_lane(image)
+    image = self.lane_follower.follow_lane(image)
     return image
 
 def cleanup():
@@ -64,15 +64,17 @@ while camera.isOpened():
     i += 1
     video_orig.write(image_lane)
 
-    image_objs = process_objects_on_road(image_objs)
-    video_objs.write(image_objs)
-    show_image('Detected Objects', image_objs)
+    
+    #image_objs = traffic_sign_processor.process_objects_on_road(image_objs)
+    #video_objs.write(image_objs)
+    #show_image('Detected Objects', image_objs)
 
-    image_lane = follow_lane(image_lane)
+    image_lane = lane_follower.follow_lane(image_lane)
     video_lane.write(image_lane)
     show_image('Lane Lines', image_lane, True)
     
     car.accel(20)
+    car.steer(lane_follower.curr_steering_angle)
 
     if cv2.waitKey(1) & 0xFF == ord('q'):
         cleanup()
