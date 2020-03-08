@@ -4,6 +4,7 @@ import cv2
 import datetime
 from hand_coded_lane_follower import HandCodedLaneFollower
 from objects_on_road_processor import ObjectsOnRoadProcessor
+from past.utils import old_div
 
 _SHOW_IMAGE = True
 
@@ -33,6 +34,8 @@ def show_image(title, frame, show=_SHOW_IMAGE):
     if show:
         cv2.imshow(title, frame)
 
+def map_degree_2_steercmd(x, in_min = 45, in_max = 135, out_min = 0, out_max = 255):
+    return old_div((x - in_min) * (out_max - out_min), (in_max - in_min)) + out_min
 
 INITIAL_SPEED = 0
 SCREEN_WIDTH = 320
@@ -74,7 +77,9 @@ while camera.isOpened():
     show_image('Lane Lines', image_lane, True)
     
     car.accel(20)
-    car.steer(lane_follower.curr_steering_angle)
+    steer_cmd = map_degree_2_steercmd(lane_follower.curr_steering_angle)
+    print('Steer cmd :' + str(steer_cmd))
+    car.steer(steer_cmd)
 
     if cv2.waitKey(1) & 0xFF == ord('q'):
         cleanup()
